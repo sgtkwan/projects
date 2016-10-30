@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TxtBabble</title>
+<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ 
+<script>
+$( document ).ready(function()
+{
+
+var frm1 = $('#loginBox');
+
+frm1.submit(function (e) 
+{
+	$.ajax
+	({
+		type: frm1.attr('method'),
+		url: frm1.attr('action'),
+		data: frm1.serialize(),
+		success: function (data) 
+		{
+			$("#loginDisplay").html(data);
+		}
+	});
+	e.preventDefault();
+});
+
+var frm2 = $('#registrationBox');
+
+frm2.submit(function (e) 
+{
+	$.ajax
+	({
+		type: frm2.attr('method'),
+		url: frm2.attr('action'),
+		data: frm2.serialize(),
+		success: function (data) 
+		{
+			$("#display").html(data);
+		}
+	});
+	e.preventDefault();
+});
+});
+
+function storeUser(){
+//sessionStorage.setItem('username', document.forms["loginBox"]["userName"].value);
+}
+function storeUserNew(){
+//sessionStorage.setItem('username', document.forms["registrationBox"]["userName"].value);
+}
+
+function validateLogin(){
+    var x = document.forms["loginBox"]["userName"].value;
+    var y = document.forms["loginBox"]["passWord"].value;
+    if (x == null || x == "") {
+        alert("Username must be filled out");
+        return false;
+    }
+    if (y == null || y == "") {
+        alert("Password field must be filled out");
+        return false;
+    }
+}
+
+function validateReg() {
+    var un = document.forms["registrationBox"]["rUserName"].value;
+    var x = document.forms["registrationBox"]["rPassword"].value;
+    var y = document.forms["registrationBox"]["rePassword"].value;
+    if (un == null || un == "") {
+        alert("Username must be filled out");
+        return false;
+    }
+    if (x == null || x == "") {
+    	alert("Password must be filled out");
+        return false;
+    }
+    if (y == null || y == "") {
+        alert("Retype password field must be filled out");
+        return false;
+    }
+    if (x != y) {
+        alert("The two password does not match! Please retype your password!");
+        return false;
+    } else {
+        document.getElementById("regSucess").innerHTML = "Registration Successful! ";
+    }
+}
+</script>
+
+  <style>
+    #display
+  {
+  	color: red;
+  	font-weight: bold;
+  	margin: auto;
+    	width: 100%;
+  }
+  
+  #loginDisplay
+  {
+  	color: red;
+  	font-weight: bold;
+  }
+  
+  body {
+      position: relative;
+	background-image: url("background.png");
+	background-attachment: fixed;
+	background-position: center; 
+	background-size: cover;
+	background-repeat:no-repeat;
+	font-family: architects daughter;
+	font-weight: bold;
+  }
+  ul.nav-pills {
+      top: 20px;
+      position: fixed;
+  }
+  div.col-sm-9 div {
+      height: 250px;
+      font-size: 20px;
+
+  }
+  #msg{
+          left:3px;
+  }
+  #top{
+    -webkit-border-radius: 15px 15px 15px 15px; 
+    -moz-border-radius: 15px 15px 15px 15px;
+    -o-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+	background: rgba(255, 255, 255, .5); 
+	height: 400px;
+	text-align: center;
+	position: relative;	
+	left: 0px;
+	}
+  #about {
+    -webkit-border-radius: 15px 15px 15px 15px; 
+    -moz-border-radius: 15px 15px 15px 15px;
+    -o-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+	background: rgba(255, 255, 255, .5);	
+	height: 400px;
+	text-align: center;
+	position: relative;	
+	left: 0px;
+	}
+  #login {
+    -webkit-border-radius: 15px 15px 15px 15px; 
+    -moz-border-radius: 15px 15px 15px 15px;
+    -o-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+	background: rgba(255, 255, 255, .5);	
+	height: 250px;
+	text-align: center;
+	position: relative;	
+	left: 0px;
+	}
+  #reg {
+    -webkit-border-radius: 15px 15px 15px 15px; 
+    -moz-border-radius: 15px 15px 15px 15px;
+    -o-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+	background: rgba(255, 255, 255, .5); 
+	height: 340px;
+	text-align: center;
+	position: relative;	
+	left: 0px;
+	}
+  
+  @media screen and (max-width: 810px) {
+    #section1, #section2, #section3, #section41, #section42  {
+        margin-left: 150px;}
+        .active, .dropdown, #about2{visibility: hidden;}
+    #about{
+    height:500px;
+    }
+    #reg{
+    height:350px;
+    }
+    
+    }
+     @media screen and (max-width: 1435px) {
+      #reg{
+    height:330px;
+    }
+    
+     }
+      @media screen and (max-width: 500px) {
+    #about{
+    height:500px;
+    }
+    .active, .dropdown, #about2{visibility: hidden;}
+    #reg{
+    height:350px;}
+    #login {
+    height: 280px;
+    }
+    }
+
+    
+  }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+
+<div class="container">
+  <div class="row">
+    <nav class="col-sm-3" id="myScrollspy">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#top">Top</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Chat <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#login">Login</a></li>
+            <li><a href="#reg">Registration</a></li>                     
+          </ul>
+        <li id = "about2"><a href="#about">about</a></li>
+        </li>
+      </ul>
+    </nav>
+    <div class="col-sm-9">
+    
+      <div id="top"> 
+      <center>   
+        <img src="Logo.png" height="250" width="250" class="img-responsive">
+	<img src="BabbleT.png" class="img-responsive">
+	</center>
+      </div>   
+      <div id="login">         
+	<h1>Login</h1>
+	<form id ="loginBox" method="POST" action="login.php">
+	  	Username:<br>
+	  	<input type="text" name="userName"><br>
+		Password:<br>
+	  	<input type="password" name="passWord">
+	<br>
+	<input type="submit" value="Login">
+	 
+	</form>
+	<span id ="loginDisplay"> </span>
+      </div>      
+      <div id="reg">         
+	<h2>Registration</h2>
+	<form id ="registrationBox" name="registrationBox" method="post" action="register.php">
+	  	Username:<br>
+	  	<input type="text" id="rUserName" name="rUserName"> 
+	  	<br>
+		Password:<br>
+	  	<input type="password" name="rPassword" id="rPassword">
+	<br>
+		Retype password:<br>
+	  	<input type="password" name="rePassword" id="rePassword">
+	<br>
+	<input type="submit" value="Register">
+	</form>
+	<span id ="display"> </span>
+	<br>
+      </div>
+    <div id="about">         
+	<p id ="regSucess"> </p>
+	
+	<h2> About BabbleT </h2>
+	<p> 
+	BabbleT is a free web application that allows you to chat with new people every day from anywhere. <br>
+	You can meet and chat with people that have similar interest. <br>
+	</p>
+	<h3> Group Members </h3>
+	<p>
+	Robert Mok (Section 1)<br>
+	Qingbo Jiang (Section 2)<br>
+	Zhe Zeng (Section 1)<br>
+	Michael Kwan (Section 2)<br>
+	Htet Wai (Section 2)<br>
+
+	</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<br>
+
+
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script>
+
+$(document).ready(function()
+{
+var searchFunction;
+var getMatchFunction;
+var getMessageFunction;
+var chatStatusFunction;
+
+function changeProfileLink()
+{
+	$.ajax({url: "getUserID.php", success: function(result)
+	{
+		$("#profileIcon").attr("href", "profile.html?userID="+result);
+	}});
+}
+
+changeProfileLink();
+
+
+$("#chatID").hide();
+$('#display2').hide();
+$("#searchBox").submit(function(e)
+{
+	removeChatID();
+	$("#table").show();
+	$.ajax
+	({
+		type: $(this).attr('method'),
+		url: "insertRequest.php",
+		data: $(this).serialize(),
+		success: function (data) 
+		{
+			$("#display").html(data);
+			searchFunction = setInterval(printMatch, 3000);
+			getMatchFunction = setInterval(getMatch, 5000);
+			
+		}
+	});
+	e.preventDefault();
+	$('#topic').val('');
+});
+
+$("#chatForm").submit(function(e)
+{
+	$.ajax
+	({
+		type: $(this).attr('method'),
+		url: "sendMsg.php",
+		data: $(this).serialize(),
+		success: function (data) 
+		{
+			$("#msgSection").append(data);
+		}		
+	});
+	e.preventDefault();
+	$('#message').val('');
+});
+
+function printMatch()
+{
+	    $.ajax({url: "printMatch.php", success: function(result)
+	    {
+		        $("#table").html(result);
+		        selectMatch();	        
+		        
+	    }});
+}
+
+function selectMatch()
+{
+	$(".selectUser").click(function()
+	{
+		$.ajax({
+		url: "selectMatch.php",
+		method: "POST",
+		data: {id : $(this).attr('id')},
+		success: function(result)
+		{
+			$("#table").html(result);
+			clearInterval(searchFunction);
+			clearInterval(getMatchFunction);
+			$("#table").hide();
+			$("#chatID").show();
+			$("#searchBox").hide();
+			printChat();
+	
+		}});
+	});
+}
+
+function getMatch()
+{
+		$.ajax({
+		url: "getMatch.php",
+		success: function(result)
+		{
+			$("#display").html(result);
+			getMatchBool();			
+		}});
+}
+
+function createChat()
+{
+	$.ajax({
+	url: "makeChat.php",
+	success: function(result)
+	{
+		$("#display").html(result);
+		$("#chatID").show();
+		printChat();
+	}});	
+}
+
+function printChat()
+{
+	chatStatusFunction = setInterval(chatStatus, 2000);
+	getMessageFunction = setInterval(getMessage, 2000);
+}
+
+function chatStatus()
+{
+	$.ajax({
+	url: "chatStatus.php",
+	success: function(result)
+	{
+		$("#display2").html(result);
+		if(result == 1)
+		{
+			clearInterval(chatStatusFunction);
+			clearInterval(getMessageFunction);
+			//removeChatID();
+			$("#chatID").hide();
+			$("#searchBox").show();
+			$("#msgSection").html("");
+		}
+		else
+		{
+			
+		}
+	}});	
+}
+
+function removeChatID()
+{
+	$.ajax({
+	url: "removeChatID.php",
+	success: function(result)
+	{
+		 $("#display").html(result);
+	}});
+}
+
+function getMessage()
+{
+	$.ajax({
+	url: "getMessage.php",
+	success: function(result)
+	{
+		$("#msgSection").append(result);
+	}});	
+}
+
+function getMatchBool()
+{
+	$.ajax
+	({
+		url: "getMatchBool.php",
+		success: function (data) 
+		{
+			if(data == "1")
+			{
+				//alert("hey");
+				clearInterval(searchFunction);
+				clearInterval(getMatchFunction);
+				$("#table").hide();
+				$("#searchBox").hide();
+				createChat();
+			}
+			else
+			{
+				//alert("bye");
+			}
+			
+		}
+	});
+}
+});
+
+
+function closeChat()
+{
+	$.ajax({
+	url:"closeChat.php",
+	sucess: function(result)
+	{
+		$("#display").html(result);
+	}});
+	$("#chatID").hide();
+	$("#searchBox").show();
+	$("#msgSection").html("");
+	
+}	
+
+function loggingout() 
+{
+        $.ajax({
+	url: "removeChatID.php",
+	success: function(result)
+	{
+		$("#display").html(result);
+	}});
+   	$.get("logout.php");
+	window.location = "http://babbletxt.com/";
+	return false;
+}
+ function ScrollToBottom(){
+     var d = document.getElementById("msgSection");
+     d.scrollTop = d.scrollHeight;
+}
+
+function changeBG(id)
+{	
+	if(id=="0")
+	{
+	msgSection.style.backgroundColor = "#F0FFFF";
+	}
+	else if(id=="1")
+	{
+	msgSection.style.backgroundColor = "#0074D9";
+	}
+		else if(id=="2")
+	{
+	msgSection.style.backgroundColor = "#7FDBFF";
+	}
+		else if(id=="3")
+	{
+	msgSection.style.backgroundColor = "#01FF70";
+	}
+		else if(id=="4")
+	{
+	msgSection.style.backgroundColor = "#FFDC00";
+	}
+		else if(id=="5")
+	{
+	msgSection.style.backgroundColor = "#76b852";
+	}
+		else if(id=="6")
+	{
+	msgSection.style.backgroundColor = "#DDDDDD";
+	}
+		else if(id=="7")
+	{
+	msgSection.style.backgroundColor = "#111111";
+	}
+}
+		
+</script>
+</head>
+<style>
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+            #msgSection
+            {
+
+                bottom: 60px;
+                height: 500px;
+                min-height: 150px;
+                width: 90%;
+                background-color: #F0FFFF;
+                border: 3px solid rgba(29, 49, 91, .3);
+                overflow-y: scroll;
+            }
+
+            #chatInput
+            {
+
+            bottom:00px;
+            height:20px;
+            }
+            #timeOfMSG
+            {
+            font-style: italic;
+            font-size: 5px;
+            }
+            
+            .img-responsive
+            {
+            	display: inline-block;
+            }
+            
+            .jumbotron
+            {
+            	background: rgb(255, 255, 255);
+            	background: rgba(255, 255, 255, .7);
+            	margin-top: 20px;
+  	    }
+  	    
+  	    body
+  	    {
+  	    	background: url(background.png) no-repeat center fixed; 
+    	    	background-size: cover;
+    	    	margin-bottom: 20px;
+  	    }
+  	    
+  	    #main
+  	    {
+  	    	background: rgb(255, 255, 255);
+            	background: rgba(255, 255, 255, .8);
+            	padding: 20px;
+            	border-radius: 10px;
+            }
+            
+            div#matchtb.container
+            {
+    		margin: auto;
+    		width: 100%;
+	   }
+            
+
+</style>
+<body>
+<div class="container">
+<div class="jumbotron">
+<center>
+<img class="img-responsive" src="Logo.png" height="269" width="269">
+<img class="img-responsive" src="BabbleT.png">
+</center>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">Welcome to BabbleT </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      	<li><a id="profileIcon" href="profile.html"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+        <li><a href="#" onclick="return loggingout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<br>
+
+<div id="main">
+
+<?php
+
+session_start();
+if ($_SESSION["loggedIn"])
+{
+	echo "<h2>Welcome Back ";
+	echo $_SESSION["username"];
+	echo "! You are logged in! </h2>
+
+	<form id = 'searchBox' name='searchBox' method='POST'>
+  	<br> Enter a topic you would like to chat about here:<br>
+  	<input type='text' name='topic' id='topic'>
+  	<input type='submit' value='Search'>	
+	</form>
+	
+	
+	<div id='table'> 
+	</div>
+	
+	<h1 > Chat </h1>
+	<table id='userdata'>
+	</table>
+
+	<div id='chatID' class='chatBox'>
+	<button type='button' class='btn btn-primary' id='quitChatButton' onclick='closeChat()'>Quit Chat</button>	
+	Change Chat Colors: 
+	<button type=button id='0' style='background-color: #F0FFFF; padding: 15px' onClick='changeBG(id)'></button>
+	<button type=button id='1' style='background: #0074D9; padding: 15px' onClick='changeBG(id)'></button>
+	<button type=button id='2' style='background: #7FDBFF; padding: 15px' onClick='changeBG(id)'></button>
+	<button type=button id='3' style='background: #01FF70; padding: 15px' onClick='changeBG(id)'></button>
+	<button type=button id='4' style='background: #FFDC00 ; padding: 15px' onClick='changeBG(id)'></button>
+	<button type=button id='5' style='background: #76b852; padding: 15px' onClick='changeBG(id)'></button>
+	<button type=button id='6' style='background: #DDDDDD; padding: 15px' onClick='changeBG(id)'></button>
+	<button type=button id='7' style='background: #111111; padding: 15px' onClick='changeBG(id)'></button>
+	
+
+	<br>
+	<div id='msgSection'>
+	</div>
+	<div id = 'chatInput'>
+	<form method='POST' id='chatForm' name='chatForm'>
+	<input type='text' name='message' id='message'>
+	<input type='submit' value='Submit'>
+	</form>
+	</div>
+	</div>
+	";
+}
+else
+{
+	echo "<script> window.location = 'http://babbletxt.com/denied.html' </script>";
+}
+?>
+
+<div id ="display">
+</div>
+<div id ="display2">
+</div>
+
+</div>
+
+</body>    
+</html>

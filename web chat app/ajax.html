@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Insert title name here</title> 
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="stylesheet.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+$( document ).ready(function()
+{
+
+var frm = $('#contactForm1');
+
+frm.submit(function (e) 
+{
+	$.ajax
+	({
+		type: frm.attr('method'),
+		url: frm.attr('action'),
+		data: frm.serialize(),
+		success: function (data) 
+		{
+			$("#display").html(data);
+		}
+	});
+	e.preventDefault();
+});
+});
+
+</script>
+</head>
+<body>
+<?php include 'header.php';?>
+
+<div id ="content">
+
+<form id="contactForm1" action="ajax.php" method="post">
+input: <input type="text" name="something"> <br>
+<input type="submit" value="Submit">
+</form>
+
+<p id="display"></p>
+
+</body>
+</html>	

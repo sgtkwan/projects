@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script>
+function loggingin() {
+    window.location = "http://babbletxt.com/";
+    return false;
+}
+</script>
+
+<style>
+	.img-responsive
+	{
+       		display: inline-block;
+        }
+            
+        .jumbotron
+        {
+      		background: rgb(255, 255, 255);
+          	background: rgba(255, 255, 255, .7);
+          	margin-top: 20px;
+  	}
+  	    
+  	body
+  	{
+  	    	background: url(background.png) no-repeat center fixed; 
+    	    	background-size: cover;
+    	    	margin-bottom: 20px;
+  	}
+  	    
+  	#main
+  	{
+  		background: rgb(255, 255, 255);
+        	background: rgba(255, 255, 255, .8);
+         	padding: 20px;
+            	border-radius: 10px;
+        }
+
+	#warn1
+	{
+		text-align: center;
+		color: red;
+	}
+	
+	#warn2
+	{
+		text-align: center;
+	}
+	
+</style>
+
+</head>
+
+<body>
+<div class="container">
+<div class="jumbotron">
+<center>
+<img class="img-responsive" src="Logo.png" height="420" width="420">
+<img class="img-responsive" src="BabbleT.png">
+</center>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Welcome to BabbleT </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" onclick="return loggingin()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="main">
+<div class="row">
+  <div class="col-md-6"> <h1 id="warn1"><span class="glyphicon glyphicon-remove"></span> Access Denied! </h1> </div>
+  <div class="col-md-6"> <h2 id="warn2"> You are not logged in!  Login now! <span class="glyphicon glyphicon-hand-up"></span> </h2> </div>
+</div>
+
+<br>
+<img class="img-responsive" src="https://lh3.googleusercontent.com/-xPp-shpH2sM/VZmTk5DTE7I/AAAAAAAADHc/vRkSixd0RBA/w1280-h720/Gandalf%2BYou%2Bshall%2Bnot%2Bpass.jpg">
+
+</div>
+</div>
+</body>    
+</html>

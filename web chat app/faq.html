@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FAQ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function()
+{
+function changeProfileLink()
+{
+	$.ajax({url: "getUserID.php", success: function(result)
+	{
+		$("#profileIcon").attr("href", "profile.html?userID="+result);
+	}});
+}
+
+changeProfileLink();
+});
+
+function loggingout() 
+{
+        $.ajax({
+	url: "removeChatID.php",
+	success: function(result)
+	{
+		$("#display").html(result);
+	}});
+   	$.get("logout.php");
+	window.location = "http://babbletxt.com/";
+	return false;
+}
+</script>
+
+<style>
+	.img-responsive
+            {
+            	display: inline-block;
+            }
+            
+            .jumbotron
+            {
+            	background: rgb(255, 255, 255);
+            	background: rgba(255, 255, 255, .7);
+            	margin-top: 20px;
+  	    }
+  	    
+  	    body
+  	    {
+  	    	background: url(background.png) no-repeat center fixed; 
+    	    	background-size: cover;
+    	    	margin-bottom: 20px;
+  	    }
+  	    
+  	    #main
+  	    {
+  	    	background: rgb(255, 255, 255);
+            	background: rgba(255, 255, 255, .8);
+            	padding: 20px;
+            	border-radius: 10px;
+            }
+            
+</style>
+
+</head>
+<body>
+<div class="container">
+<div class="jumbotron">
+<center>
+<img class="img-responsive" src="Logo.png" height="420" width="420">
+<img class="img-responsive" src="BabbleT.png">
+</center>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">Welcome to BabbleT </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="homepage.html">Home</a></li>
+        <li class="active"><a href="faq.html">FAQ</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="profileIcon" href="profile.html"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+        <li><a href="#" onclick="return loggingout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="main">
+<h1><strong>FAQ</strong></h1>
+
+<h2><strong>What does the T in BabbleT stand for?</strong></h2>
+<p>The T in BabbleT stands for text.</p>
+
+<h2><strong>How do I register?</strong></h2>
+<p>In the homepage, you can click on the Chat button in the menu.
+<br/>
+It will pop up a Login and Registration button. 
+Clicking the Registration button will take you to the Registration form. 
+<br/>
+Create a username and password and fill in the form.
+<br/>
+Click submit when you are done. A new account will be created for you.
+<br/>
+You can then login to begin chatting.</p>
+
+<h2><strong>How do I login?</strong></h2>
+<p>In the homepage, you can click on the Chat button in the menu.
+<br/>
+It will pop up a Login and Registration button. 
+<br/>
+Clicking the Login button will take you to the Login form.<br/>
+Enter you username and password. Click submit when you are done.
+<br/>
+You will be taken to the main page where you can begin chatting.</p>
+
+<h2><strong>How do I search a topic?</strong></h2>
+<p>Enter your desired topic in the search box. 
+<br/>
+Click search when you are done.
+<br/>
+A list of matched users will appear in a table.</p>
+
+<h2><strong>How do I join a chat room?</strong></h2>
+<p>After searching for a topic, you can select a user from the matched users table.
+<br/>
+The web application will automatically create the chat interface for you.
+<br/>
+You can then start chatting with the selected user.</p>
+
+<h2><strong>How do I logout?</strong></h2>
+<p>You can logout by clicking the Logout button above the search box.<br />You will be taken back to the login page.</p>
+
+<h2><strong>What are the chat room policies?</strong></h2>
+<p>There are no particular room policies. You are free to chat whatever you want.
+<br/>
+However, you must comply to law of your country.</p>
+
+<h2><strong>Is it mobile compatible?</strong></h2>
+<p>Our website is mobile compatible. 
+<br/>
+You can chat on a tablet, ipod, iPhone, Androids, Blackberry, Windows phone and etc.</p>
+
+<h2><strong>Is there a multi-user chat room?</strong></h2>
+<p>There is currently no multi-user chat room.</p>
+
+<h2><strong>How to leave or quit chat room?</strong></h2>
+<p>You can leave or quit chat room by clicking the Quit button above the chat box.
+<br/>
+You can then search another topic.</p>
+
+<h2><strong>How to send message?</strong></h2>
+<p>Enter your message in the message box below the chat window.
+<br/>
+Click Send to send your message.</p>
+
+<h2><strong>Is there minimum age restriction to join?</strong></h2>
+<p>The minimum age to join BabbleT is 14 years old.</p>
+
+<h2><strong>How do I select a user to chat with?</strong></h2>
+<p>When you are displayed with a list of matched users after your search.
+<br/>
+You can click the select button beside the username to chat with that specific user.</p>
+
+</div>
+</div>
+</body>    
+</html>

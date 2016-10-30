@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<style>
+	.img-responsive
+            {
+            	display: inline-block;
+            }
+            
+            .jumbotron
+            {
+            	background: rgb(255, 255, 255);
+            	background: rgba(255, 255, 255, .7);
+            	margin-top: 20px;
+  	    }
+  	    
+  	    body
+  	    {
+  	    	background: url(background.png) no-repeat center fixed; 
+    	    	background-size: cover;
+    	    	margin-bottom: 20px;
+  	    }
+  	    
+  	    #main
+  	    {
+  	    	background: rgb(255, 255, 255);
+            	background: rgba(255, 255, 255, .8);
+            	padding: 20px;
+            	border-radius: 10px;
+            }
+            
+            #change
+            {
+            	display: inline-block;
+            	margin-bottom: 10px;
+            	margin-left: 20px;
+            		
+            }
+            
+</style>
+
+<script>
+$(document).ready(function()
+{
+var myUserID;
+var urlUserID;
+
+$("#profileForm").hide();
+
+
+function changeProfileLink()
+{
+	$.ajax({url: "getUserID.php", success: function(result)
+	{
+		$("#profileIcon").attr("href", "profile.html?userID="+result);
+	}});
+}
+
+changeProfileLink();
+
+function getUserID()
+{
+    $.ajax({url: "getUserID.php", success: function(result){
+        myUserID = result;
+        //$("#one").html(myUserID);
+        urlUserID = getQueryVariable("userID");
+        //$("#two").html(urlUserID);
+        
+        if (checkParemeterExists("userID"))
+	{
+		//alert("userID exists");
+		if(myUserID == urlUserID)
+		{
+			//alert("same");
+			var same = "true";
+			$.ajax
+			({
+				type: "GET",
+				url: "getprofile.php",
+				data: {userID: urlUserID, same: same},
+				success: function (data) 
+				{
+					$("#loading").html(data);
+				}
+			});
+
+		}
+		else
+		{
+		
+			//alert("not same");
+			var same = "false";
+			$.ajax
+			({
+				type: "GET",
+				url: "getprofile.php",
+				data: {userID: urlUserID, same: same},
+				success: function (data) 
+				{
+					$("#loading").html(data);
+				}
+			});
+			
+		}
+	}
+	else
+	{
+		$("#profileForm").show();
+	}
+    }});
+}
+
+getUserID();
+
+
+$("#profileForm").submit(function(event) 
+{
+	$.ajax
+	({
+		type: $(this).attr('method'),
+		url: "editprofile.php",
+		data: $(this).serialize(),
+		success: function (data) 
+		{
+			$("#loading").html(data);
+		}
+	});
+	event.preventDefault();
+});
+
+
+
+});
+
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+function checkParemeterExists(parameter)
+{
+   //Get Query String from url
+   fullQString = window.location.search.substring(1);
+   
+   paramCount = 0;
+   queryStringComplete = "?";
+
+   if(fullQString.length > 0)
+   {
+       //Split Query String into separate parameters
+       paramArray = fullQString.split("&");
+       
+       //Loop through params, check if parameter exists.  
+       for (i=0;i<paramArray.length;i++)
+       {
+         currentParameter = paramArray[i].split("=");
+         if(currentParameter[0] == parameter) //Parameter already exists in current url
+         {
+            return true;
+         }
+       }
+   }
+   
+   return false;
+}
+
+function loggingout() 
+{
+        $.ajax({
+	url: "removeChatID.php",
+	success: function(result)
+	{
+		$("#display").html(result);
+	}});
+   	$.get("logout.php");
+	window.location = "http://babbletxt.com/";
+	return false;
+}
+
+</script>
+
+</head>
+<body>
+<div class="container">
+<div class="jumbotron">
+<center>
+<img class="img-responsive" src="Logo.png" height="420" width="420">
+<img class="img-responsive" src="BabbleT.png">
+</center>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">Welcome to BabbleT </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="profileIcon" href="profile.html"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+        <li><a href="#" onclick="return loggingout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="main">
+<div id ="one"> </div>
+<div id ="two"> </div>
+
+<form id = "profileForm" name = "profileForm" method ="POST">
+Name:<br><input type="text" id="name" name="name"><br>
+About:<br><input type="text" id="about" name="about"><br>
+Phone<br><input type="text" id="phone" name="phone"><br>
+Email<br><input type="text" id="email" name="email"><br>
+Picture URL<br><input type="text" id="pictureURL" name="pictureURL"><br>
+<input type="submit" value="Save Changes">
+</form>
+
+<div id ="loading"> </div>
+</div>
+</body>
+</html>
