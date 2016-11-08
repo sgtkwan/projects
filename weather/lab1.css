@@ -1,0 +1,65 @@
+div
+{
+	border-size:2px;
+	border-style:solid;
+	border-color:black;
+	overflow:auto;  
+    display:inline-block;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box; 
+}
+div.current
+{
+	flex-grow: 3;
+}
+div.hour1
+{
+	flex-grow: 1;
+}
+div.hour2
+{
+	flex-grow: 1;
+}
+div.hour3
+{
+	flex-grow: 1;
+}
+div.day1
+{
+	flex-grow: 1;
+}
+div.day2
+{
+	flex-grow: 1;
+}
+div.day3
+{
+	flex-grow: 1;
+}
+div.day4
+{
+	flex-grow: 1;
+}
+div.day5
+{
+	flex-grow: 1;
+}
+.container
+{
+	display: flex;
+	flex-direction: row;
+	flex-flow:row wrap;
+}
+.container1
+{
+	display: flex;
+	flex-direction: row;
+	flex-flow:row wrap;
+}
+.container2
+{
+	display: flex;
+	flex-direction: row;
+	flex-flow:row wrap;
+}

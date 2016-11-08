@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>CPS630 Lab 2 Michael kwan 500522713</title>
+<link rel="stylesheet" type="text/css" href="lab1.css">
+<meta charset="utf-8">
+<style>
+div
+{
+	border-size:2px;
+	border-style:solid;
+	border-color:black;
+	height: 100px;
+}
+</style>
+</head>
+<body>
+	<form id="frm1" name="form1" action="">
+		Country: <input type="text" name="country"  value=""><br>
+		  <input type="radio" name="temp" value="cel"> celsius<br>
+		  <input type="radio" name="temp" value="fah"> fahrenheit<br>
+		
+	</form>	
+	
+	<input type="submit" onclick="search();">
+	<div class="container">
+		<div class="current">
+			<p> <h2> current weather </h2> </p>
+			<p id="desc"> </p>	
+			<p id="tempc"> </p>
+			<p id="humidc"> </p>
+			<p id="windc"> </p>
+			<img src="" id="imagec"/>			
+		</div>
+	</div>
+	<div><p> <h2> hourly weather </h2> </p></div>
+	<div class="container1">
+
+		<div class="hour1">
+			<p id="hour1"> </p>
+			<p id="desh1"> </p>	
+			<p id="temph1"> </p>
+			<p id="humidh1"> </p>
+			<p id="windh1"> </p>
+			<img src="" id="imageh1"/>
+		</div>
+		<div class="hour2">
+			<p id="hour2"> </p>
+			<p id="desh2"> </p>	
+			<p id="temph2"> </p>
+			<p id="humidh2"> </p>
+			<p id="windh2"> </p>
+			<img src="" id="imageh2"/>
+		</div>
+		<div class="hour3">
+			<p id="hour3"> </p>
+			<p id="desh3"> </p>	
+			<p id="temph3"> </p>
+			<p id="humidh3"> </p>
+			<p id="windh3"> </p>
+			<img src="" id="imageh3"/>
+		</div>
+	</div>	
+	<div><p> <h2> 5 day forcast </h2> </p></div>
+	<div class="container2">
+
+		<div class="day1">
+			<p id="desd1"> </p>	
+			<p id="tempd1"> </p>
+			<p id="windd1"> </p>
+			<img src="" id="imaged1"/>
+		</div>
+		<div class="day2">
+			<p id="desd2"> </p>	
+			<p id="tempd2"> </p>
+			<p id="windd2"> </p>
+			<img src="" id="imaged2"/>
+		</div>
+		<div class="day3">
+			<p id="desd3"> </p>	
+			<p id="tempd3"> </p>
+			<p id="windd3"> </p>
+			<img src="" id="imaged3"/>
+		</div>
+		<div class="day4">
+			<p id="desd4"> </p>	
+			<p id="tempd4"> </p>
+			<p id="windd4"> </p>
+			<img src="" id="imaged4"/>
+		</div>
+		<div class="day5">
+			<p id="desd5"> </p>	
+			<p id="tempd5"> </p>
+			<p id="windd5"> </p>
+			<img src="" id="imaged5"/>
+		</div>
+	</div>
+
+	<script src="lab1js.js">
+
+	</script>
+</body>
+</html>
